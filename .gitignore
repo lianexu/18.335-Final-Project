@@ -1,3 +1,6 @@
 guidelines*
 literature*
 .DS_Store
+test/
+.vscode/
+__pycache__/
