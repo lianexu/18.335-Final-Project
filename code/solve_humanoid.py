@@ -2,7 +2,9 @@ import numpy as np
 import pinocchio as pin
 from ltdl import factor_LTDL, compute_FD_from_LTDL
 from theoretical_flops import LTDL_theo_flops, naive_theo_flops
-from visualize_H_structure import visualize_H
+from visualize_matrix_structures import compare_branch_L_sparsity, overlay_sparsity_patterns
+from scipy.linalg import ldl
+
 
 def refactor_system_parents(model):
     """
@@ -98,4 +100,11 @@ if __name__ == "__main__":
     print(f"Theoretical LTDL FLOPS: {flops_theo_fact_ltdl+flops_theo_solve_ltdl} (Factorization: {flops_theo_fact_ltdl} + Solve: {flops_theo_solve_ltdl})")
     print(f"Theoretical Naive FLOPS: {flops_theo_fact_naive+flops_theo_solve_naive} (Factorization: {flops_theo_fact_naive} + Solve: {flops_theo_solve_naive})")
 
-    visualize_H(H_full)
+
+    L_naive, D_naive, perm = ldl(H_full)
+    # compare_branch_L_sparsity(H_full, L_naive, parent)
+
+    # visualize_branch_induced_sparsity(H_full, parent)
+    # visualize_sparsity(L)
+    compare_branch_L_sparsity(H_full, L, L_naive, parent)
+    # overlay_sparsity_patterns(H_full, L, parent)

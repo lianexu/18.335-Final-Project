@@ -57,24 +57,29 @@ def benchmark_accuracy():
     return cond_numbers, forward_errors_ltdl, backward_errors_ltdl
 
 
-conds, forward_errors, backward_errors = benchmark_accuracy()
+def plot_benchmark_accuracy():
+    conds, forward_errors, backward_errors = benchmark_accuracy()
 
-fig, ax = plt.subplots(1, 1, figsize=(10, 6))
+    fig, ax = plt.subplots(1, 1, figsize=(10, 6))
 
-sort_idx = np.argsort(conds)
-conds = np.array(conds)[sort_idx]
-forward_errors = np.array(forward_errors)[sort_idx]
-backward_errors = np.array(backward_errors)[sort_idx]
+    sort_idx = np.argsort(conds)
+    conds = np.array(conds)[sort_idx]
+    forward_errors = np.array(forward_errors)[sort_idx]
+    backward_errors = np.array(backward_errors)[sort_idx]
 
-ax.loglog(conds, forward_errors, 'r-o', label=r'Forward Error $||\ddot{q} - \ddot{q}_{true}||$')
-ax.loglog(conds, backward_errors, 'b-s', label=r'Backward Error $||H \ddot{q} - (\tau - C)|| (scaled)$')
+    ax.loglog(conds, forward_errors, 'r-o', label=r'Forward Error $||\ddot{q} - \ddot{q}_{true}||$')
+    ax.loglog(conds, backward_errors, 'b-s', label=r'Backward Error $||H \ddot{q} - (\tau - C)|| (scaled)$')
 
 
-ax.set_title('LTDL Solver Forward and Backward Error vs Condition Number')
-ax.set_xlabel('Condition Number $\kappa(H)$')
-ax.set_ylabel('Error')
-ax.legend()
-ax.grid(True, which="both", ls="-")
+    ax.set_title('LTDL Solver Forward and Backward Error vs Condition Number')
+    ax.set_xlabel('Condition Number $\kappa(H)$')
+    ax.set_ylabel('Error')
+    ax.legend()
+    ax.grid(True, which="both", ls="-")
 
-plt.tight_layout()
-plt.show()
+    plt.tight_layout()
+    plt.show()
+
+if __name__ == "__main__":
+    plot_benchmark_accuracy()
+    

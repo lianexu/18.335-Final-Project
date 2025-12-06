@@ -205,6 +205,6 @@ def benchmark_spider_variations():
     plt.tight_layout()
     plt.show()
 
-
-benchmark_general()
-# benchmark_spider_variations()
+if __name__ == "__main__":
+    benchmark_general()
+    # benchmark_spider_variations()
